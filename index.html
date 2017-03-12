@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Should do List</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js"></script>  
+    
+    <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style type="text/css">
+    .groceries {
+    	color: #BADA55;
+    }
+
+    .work {
+    	color: #C0FFEE;
+    }
+
+    .school {
+    	color: #D13537;
+    }
+
+    </style>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script> 
+    <!--
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.4.0/angular-ui.min.js"></script>
+
+  <!-- <script src="node_modules/angular-filter/dist/angular-filter.min.js"></script>-->
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+
+  </head>
+
+  <body ng-app="todoApp" ng-controller="todoController">
+        
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="material-icons">close</i></a>
+            <a href="file:///C:/Users/Djamilla/Documents/Blok%20H/Bouwen/Todo%20List/ToDo%20list/addlist.html">Voeg 
+            <a href="#" ng-repeat="item in items |unique:'category' | filter: filters track by $index  " ng-click="filters.category = item.category">{{item.category}}</a>
+        </div>
+        <!-- Use any element to open the sidenav -->
+
+        <span onclick="openNav()" ng-click="uniqueItems()"><i class="material-icons">menu</i></span>
+    <div class="listDiv">
+    <button ng-click="test()">HALLO</button>
+
+
+<!-- test -->
+        <ul>
+    <li ng-repeat="attr in data">
+      <input type="radio" name='data-attr' value='{{attr.id}}' ng-model="selected.id" />{{attr.id}}
+    </li>
+  </ul>
+  
+  <!-- I NEED TO POPULATE THIS SELECT WITH "VALUES HASH" OF SELECTED RADIO ITEM -->
+  
+  <select ng-model="selected.value" ng-options="item.id for item in selectedAttr.values ">
+  </select>
+  
+  <hr>
+  selectedAttr: {{selectedAttr | json}}
+  <hr>
+  Selected: {{selected | json}}
+
+  </div>
+
+  <!-- test --> 
+    <br>
+    <div class="col-lg-6">
+	    <div class="input-group">
+	      <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
+	    </div>
+	</div>
+
+	<br><br/>
+
+    <select ng-model="orderProp" ng-options="item.category for item in items">
+    <option value="0">Default</option>
+    // unique options from the categories
+    </select>
+
+    <table class="table">
+    	<thead>
+    		<tr>
+    			<th>Item</th><th>Category</th><th>Status</th><th></th>
+    		</tr>
+    	</thead>
+    	<tbody>
+        <a ng-click="filters.category = ''"'>clear filters</a>
+            <!-- FOREACH item IN items -->
+    		<tr ng-repeat="item in items | filter : filters | filter: checked=false | filter: searchTerm track by $index">
+            <!-- | unique: 'category'-->
+    			<td>{{$index+1}}</td>
+                <td>
+                    <span ng-hide="item.updating">{{item.name}}</span>
+                    <input type="text" ng-model="item.name" ng-show="item.updating">
+
+                </td>
+                <td>
+                    {{item.category}}
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="item.checked">
+                </td>
+                <td>
+                    <button ng-click="showMe = !showMe"><i class="material-icons">create</i></button>
+                </td>
+                <td>
+                <div ng-show="showMe">
+                    <button type="button" class="btn btn-success" ng-click="updateItem(item)" ng-show="item.updating">Save</button>
+
+                    <button type="button" class="btn btn-warning" ng-click="item.updating=true;" ng-hide="item.updating">Update</button>
+
+                    <button type="button" class="btn btn-danger" ng-click="deleteItem(item)">Delete</button>
+                </td>
+                </div>
+    		</tr>
+
+    	</tbody>
+    </table>
+
+    <hr>
+     <script type="text/javascript" src="filters.js"></script>
+    <!--<script type="text/javascript" src="unique.js"></script> -->
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>

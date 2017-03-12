@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Should do List</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.8/angular-filter.min.js"></script> -->
+
+    <style type="text/css">
+    .groceries {
+    	color: #BADA55;
+    }
+
+    .work {
+    	color: #C0FFEE;
+    }
+
+    .school {
+    	color: #D13537;
+    }
+
+    </style>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+  </head>
+
+  <body ng-app="todoApp" ng-controller="todoController">
+
+    <form>
+	  <div class="form-group">
+	    <label for="itemInput">Should do item</label>
+	    <input type="text" class="form-control" id="itemInput" placeholder="item ..." ng-model="newItem.name">
+	  </div>
+        <input type="text" class="form-control" id="categoryInput" placeholder="category ..." ng-model="newItem.category">
+	  </div>
+
+	  <button type="button" class="btn btn-danger">Reset</button>
+	  <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
+	</form>
+
+
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
