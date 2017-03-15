@@ -158,6 +158,17 @@ todoApp.controller('todoController', function($scope) {
         return categories;
     }
 
+    $scope.getColorByNote = function(note){
+        var categories = "";
+        angular.forEach($scope.categories, function(value, key) {
+            if(note.id == value.id){
+                categories = value.color;
+                return false;
+            }
+        });
+        return categories;
+    }
+
 });
   /*$scope.uniqueItems = function(){
     var test = $scope.items.

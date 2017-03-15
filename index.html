@@ -15,16 +15,16 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style type="text/css">
-    .groceries {
-        color: #BADA55;
+    .red {
+        color: #ff0000;
     }
 
-    .work {
-        color: #C0FFEE;
+    .blue {
+        color: #6600ff;
     }
 
-    .school {
-        color: #D13537;
+    .green {
+        color: #00ff00;
     }
 
     </style>
@@ -136,7 +136,7 @@
                     <input type="text" ng-model="note.name" ng-show="note.updating">
 
                 </td>
-                <td>
+                <td ng-class="{red: getColorByNote(note)==='red', blue: getColorByNote(note)==='blue', green: getColorByNote(note)==='green'}">
                     {{getCategoryByNote(note)}}
                 </td>
                 <td>
@@ -167,6 +167,21 @@
     <!-- Currency name here -->
   </tr>
   </table>
+
+      <form>
+      <div class="form-group">
+        <label for="itemInput">Should do item</label>
+        <input type="text" class="form-control" id="itemInput" placeholder="id ..." ng-model="newItem.id">
+      </div>
+        <input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name">
+      </div>
+       <input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2">
+      </div>
+        <input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color">
+      </div> 
+      <button type="button" class="btn btn-danger">Reset</button>
+      <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
+    </form>
 
      <div ng-view=""></div> 
 <script type="text/javascript" src="app.js"></script>
