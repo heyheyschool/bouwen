@@ -37,13 +37,23 @@
 	  </div>
         <input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name">
 	  </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2">
+       <input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2">
       </div>
         <input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color">
-      </div>
+      </div> 
 	  <button type="button" class="btn btn-danger">Reset</button>
 	  <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
 	</form>
+
+    <table>
+      <tr ng-repeat="note in notes |orderBy : 'name'">
+    <td>{{note.name}}</td>
+    <td>{{note.id}}</td>
+    <td>{{getCategoryByNote(note)}}</td>
+    <!-- Currency name here -->
+  </tr>
+  </table>
+
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="filters.js"></script>
   </body>

@@ -87,8 +87,8 @@ todoApp.controller('todoController', function($scope) {
 
     $scope.notes.push({
       id: $scope.newItem.id,
-      name: $scope.newItem.name,
-      checked: false
+      checked: false,
+      name: $scope.newItem.name
     });
 
     $scope.categories.push({
@@ -97,7 +97,12 @@ todoApp.controller('todoController', function($scope) {
       color: $scope.newItem.color
     });
 
+    console.log($scope.notes);
+    console.log($scope.newItem);
+
     $scope.newItem = {};
+
+    console.log($scope.notes);
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
     localStorage.setItem("categories", JSON.stringify($scope.categories));
@@ -112,21 +117,21 @@ todoApp.controller('todoController', function($scope) {
 //-----
 
     $scope.notes = [{
-        "ID": "1",
+        "id": "1",
         checked: false,
         "name": "Lezen",
     }, {
-        "ID": "2",
+        "id": "2",
         checked: false,
         "name": "Studeren",
     }];
     
     $scope.categories = [{
-        "ID": "1",
+        "id": "1",
         "name": "School",
         "color": "red",
     }, {
-        "ID": "2",
+        "id": "2",
         "name": "Werk",
         "color": "blue",
     }];
@@ -142,10 +147,10 @@ todoApp.controller('todoController', function($scope) {
         "name": "Low",
     }];
     
-    $scope.getCurrencyByCountry = function(note){
+    $scope.getCategoryByNote = function(note){
         var categories = "";
         angular.forEach($scope.categories, function(value, key) {
-            if(note.ID == value.ID){
+            if(note.id == value.id){
                 categories = value.name;
                 return false;
             }
