@@ -64,32 +64,48 @@ todoApp.controller('todoController', function($scope) {
 
 
 //veranderd
-  $scope.deleteItem = function(item) {
+  $scope.deleteItem = function(note) {
 
-    var index = $scope.items.indexOf(item);
-    $scope.items.splice(index, 1); 
+    //var index = $scope.notes.indexOf(note);
+    //$scope.notes.splice(index, 1); 
 
-    localStorage.setItem("items", JSON.stringify($scope.items));
+    //localStorage.setItem("notes", JSON.stringify($scope.notes));
+    var deleteIndex = -1;
+    $scope.notes.forEach(function(e, i) {
+      if(e.name === note.name) {
+        deleteIndex = i;
+      }
+    });
+
+    $scope.notes.splice(deleteIndex, 1);
+
+    localStorage.setItem("notes", JSON.stringify($scope.notes));
   };
 
   $scope.saveNewItem = function() {
     console.log($scope.newItem);
 
     $scope.items.push({
+      id: $scope.newItem.id,
       name: $scope.newItem.name,
-      category: $scope.newItem.category,
       checked: false
     });
 
+    $scope.categories.push({
+      id: $scope.newItem.id,
+      name: $scope.newItem.name2,
+      color: $scope.newItem.color
+    })
+
     $scope.newItem = {};
 
-    localStorage.setItem("items", JSON.stringify($scope.items));
+    localStorage.setItem("notes", JSON.stringify($scope.notes));
   };
 
-  $scope.updateItem = function(item) {
-    item.updating=false;
+  $scope.updateItem = function(note) {
+    note.updating=false;
 
-    localStorage.setItem("items", JSON.stringify($scope.items));
+    localStorage.setItem("notes", JSON.stringify($scope.notes));
   };
 
 //-----
@@ -114,7 +130,16 @@ todoApp.controller('todoController', function($scope) {
         "color": "blue",
     }];
 
-
+    $scope.priority = [{
+        "ID": "1",
+        "name": "High",
+    }, {
+        "ID": "2",
+        "name": "Medium",
+    }, {
+        "ID": "3",
+        "name": "Low",
+    }];
     
     $scope.getCurrencyByCountry = function(note){
         var categories = "";

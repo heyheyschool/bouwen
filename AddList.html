@@ -33,10 +33,13 @@
     <form>
 	  <div class="form-group">
 	    <label for="itemInput">Should do item</label>
-	    <input type="text" class="form-control" id="itemInput" placeholder="item ..." ng-model="newItem.name">
+	    <input type="text" class="form-control" id="itemInput" placeholder="id ..." ng-model="newItem.id">
 	  </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="category ..." ng-model="newItem.category">
+        <input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name">
 	  </div>
+        <input type="text" class="form-control" id="categoryInput" placeholder="category name..." ng-model="newItem.name2">
+      </div>
+        <input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color">
 
 	  <button type="button" class="btn btn-danger">Reset</button>
 	  <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>

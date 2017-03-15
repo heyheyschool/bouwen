@@ -130,30 +130,30 @@
         <tbody>
         <a ng-click="filters.category = ''"'>clear filters</a>
             <!-- FOREACH item IN items -->
-            <tr ng-repeat="item in items | filter : filters | filter: checked=false | filter: searchTerm track by $index">
+            <tr ng-repeat="note in notes | filter : filters | filter: checked=false | filter: searchTerm track by $index">
             <!-- | unique: 'category'-->
                <td>{{$index+1}}</td>
                 <td>
-                    <span ng-hide="item.updating">{{item.name}}</span>
-                    <input type="text" ng-model="item.name" ng-show="item.updating">
+                    <span ng-hide="note.updating">{{note.name}}</span>
+                    <input type="text" ng-model="note.name" ng-show="note.updating">
 
                 </td>
                 <td>
-                    {{item.category}}
+                    {{getCurrencyByCountry(note)}}
                 </td>
                 <td>
-                    <input type="checkbox" ng-model="item.checked">
+                    <input type="checkbox" ng-model="note.checked">
                 </td>
                 <td>
                     <button ng-click="showMe = !showMe"><i class="material-icons">create</i></button>
                 </td>
                 <td>
                 <div ng-show="showMe">
-                    <button type="button" class="btn btn-success" ng-click="updateItem(item)" ng-show="item.updating">Save</button>
+                    <button type="button" class="btn btn-success" ng-click="updateItem(note)" ng-show="note.updating">Save</button>
 
-                    <button type="button" class="btn btn-warning" ng-click="item.updating=true;" ng-hide="item.updating">Update</button>
+                    <button type="button" class="btn btn-warning" ng-click="note.updating=true;" ng-hide="note.updating">Update</button>
 
-                    <button type="button" class="btn btn-danger" ng-click="deleteItem(item)">Delete</button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteItem(note)">Delete</button>
                 </td>
                 </div>
             </tr>
