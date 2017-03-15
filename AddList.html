@@ -24,8 +24,8 @@
     }
 
     </style>
-
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
   </head>
 
   <body ng-app="todoApp" ng-controller="todoController">
@@ -37,15 +37,14 @@
 	  </div>
         <input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name">
 	  </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="category name..." ng-model="newItem.name2">
+        <input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2">
       </div>
         <input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color">
-
+      </div>
 	  <button type="button" class="btn btn-danger">Reset</button>
 	  <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
 	</form>
-
-{{message}}
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="filters.js"></script>
   </body>
 </html>

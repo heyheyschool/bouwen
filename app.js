@@ -85,7 +85,7 @@ todoApp.controller('todoController', function($scope) {
   $scope.saveNewItem = function() {
     console.log($scope.newItem);
 
-    $scope.items.push({
+    $scope.notes.push({
       id: $scope.newItem.id,
       name: $scope.newItem.name,
       checked: false
@@ -95,11 +95,12 @@ todoApp.controller('todoController', function($scope) {
       id: $scope.newItem.id,
       name: $scope.newItem.name2,
       color: $scope.newItem.color
-    })
+    });
 
     $scope.newItem = {};
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
+    localStorage.setItem("categories", JSON.stringify($scope.categories));
   };
 
   $scope.updateItem = function(note) {
