@@ -15,15 +15,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style type="text/css">
-    .red {
+    .Red {
         color: #ff0000;
     }
 
-    .blue {
+    .Blue {
         color: #6600ff;
     }
 
-    .green {
+    .Green {
         color: #00ff00;
     }
 
@@ -136,7 +136,7 @@
                     <input type="text" ng-model="note.name" ng-show="note.updating">
 
                 </td>
-                <td ng-class="{red: getColorByNote(note)==='red', blue: getColorByNote(note)==='blue', green: getColorByNote(note)==='green'}">
+                <td ng-class="{Red: getColorByNote(note)==='Red', Blue: getColorByNote(note)==='Blue', Green: getColorByNote(note)==='Green'}">
                     {{getCategoryByNote(note)}}
                 </td>
                 <td>
@@ -175,14 +175,24 @@
       <form>
       <div class="form-group">
         
-        <tr><input type="text" class="form-control" id="itemInput" placeholder="id ..." ng-model="newItem.id"></tr>
-      </div>
-        <tr><input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name"></tr>
+        <tr><input type="text" class="form-control" id="nameInput" placeholder="name ..." ng-model="newItem.name"></tr>
       </div>
        <tr><input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2"></tr>
       </div>
-        <tr><input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color"></tr>
-        <tr><input type="text" class="form-control" id="categoryInput" placeholder="priority ..." ng-model="newItem.priority"></tr>
+        <tr>
+        <select id="colorInput" ng-model="newItem.color">
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Green">Green</option>
+        </select></tr>
+        <br>
+        <tr>
+        <select id="priorityInput" ng-model="newItem.priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select> <!--<input type="text" class="form-control" id="categoryInput" placeholder="priority ..." ng-model="newItem.priority">--></tr>
+        <br>
       </div> 
       <button type="button" class="btn btn-danger">Reset</button>
       <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>

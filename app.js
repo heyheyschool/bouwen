@@ -85,20 +85,22 @@ todoApp.controller('todoController', function($scope) {
   $scope.saveNewItem = function() {
     console.log($scope.newItem);
 
+
+
     $scope.notes.push({
-      id: $scope.newItem.id,
+      id: $scope.notes.length + 1,
       checked: false,
       name: $scope.newItem.name
     });
 
     $scope.categories.push({
-      id: $scope.newItem.id,
+      id: $scope.categories.length + 1,
       name: $scope.newItem.name2,
       color: $scope.newItem.color
     });
 
     $scope.priorities.push({
-      id: $scope.newItem.id,
+      id: $scope.priorities.length + 1,
       name: $scope.newItem.priority,
     });
 
