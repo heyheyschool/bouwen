@@ -1,80 +1,146 @@
-var todoApp = angular.module('todoApp', ['todoApp.filters'])
+var todoApp = angular.module('todoApp', ['todoApp.filters', 'ngRoute'])
 //'ui, ui.filters'
 
+/* todoApp.config(['$routeProvider',
+                function($routeProvider) {
+                  $routeProvider.
+                    when('home', {
+                      templateUrl: 'test2.html'
+                    }).
+                    when('addlist', {
+                      templateUrl: 'Addlist.html'
+                    }).
+                    when('contact', {
+                        templateUrl: 'contact.html',
+                      }).
+                    otherwise({
+                      redirectTo: 'test2.html',
+                    });
+                }]);   
+*/
+
+todoApp.config(function($routeProvider) {
+    $routeProvider
+    .when("/home", {
+        templateUrl : "test2.html"
+    })
+    .when("/addlist", {
+        templateUrl : "Addlist.html"
+    })
+    .when("/contact", {
+        templateUrl : "contact.html"
+    });
+});
+
 todoApp.controller('todoController', function($scope) {
-	//HIER KOMT JE INHOUD :'D
+  //HIER KOMT JE INHOUD :'D
   
 
-	$scope.category = [
-	{name: "Groceries", color: "red"},
-	{name: "Work", color: "blue"},
-	{name: "School", color: "green"},
-	{name: "Lunch", color: "yellow"}];
- 	
- 	$scope.filters = {};
+  $scope.category = [
+  {name: "Groceries", color: "red"},
+  {name: "Work", color: "blue"},
+  {name: "School", color: "green"},
+  {name: "Lunch", color: "yellow"}];
+  
+  $scope.filters = {};
 
-	var localItems = JSON.parse(localStorage.getItem("items"));
+  var localItems = JSON.parse(localStorage.getItem("items"));
 
-	if(localItems != undefined && localItems.length>0) {
-		$scope.items = localItems;
-	}
-	else {
-		$scope.items = [
-			{name:"Milk", checked:false, category:"Groceries"},
-			{name:"Eggs", checked:false, category:"Groceries"},
-			{name:"Cheese", checked:true, category:"Groceries"},
-			{name:"Do Homework", checked:false, category:"School"},
-			{name:"Buy pencils", checked:true, category:"School"},
-			{name:"Copy code from codebin", checked:false, category:"School"},
-			{name:"Make an Angular test", checked:false, category:"Work"}
-		];
-	}
+  if(localItems != undefined && localItems.length>0) {
+    $scope.items = localItems;
+  }
+  else {
+    $scope.items = [
+      {name:"Milk", checked:false, category:"Groceries"},
+      {name:"Eggs", checked:false, category:"Groceries"},
+      {name:"Cheese", checked:true, category:"Groceries"},
+      {name:"Do Homework", checked:false, category:"School"},
+      {name:"Buy pencils", checked:true, category:"School"},
+      {name:"Copy code from codebin", checked:false, category:"School"},
+      {name:"Make an Angular test", checked:false, category:"Work"}
+    ];
+  }
 
 
 
 //veranderd
-	$scope.deleteItem = function(item) {
+  $scope.deleteItem = function(item) {
 
-		var index = $scope.items.indexOf(item);
- 	 	$scope.items.splice(index, 1); 
+    var index = $scope.items.indexOf(item);
+    $scope.items.splice(index, 1); 
 
-		localStorage.setItem("items", JSON.stringify($scope.items));
-	};
+    localStorage.setItem("items", JSON.stringify($scope.items));
+  };
 
-	$scope.saveNewItem = function() {
-		console.log($scope.newItem);
+  $scope.saveNewItem = function() {
+    console.log($scope.newItem);
 
-		$scope.items.push({
-			name: $scope.newItem.name,
-			category: $scope.newItem.category,
-			checked: false
-		});
+    $scope.items.push({
+      name: $scope.newItem.name,
+      category: $scope.newItem.category,
+      checked: false
+    });
 
-		$scope.newItem = {};
+    $scope.newItem = {};
 
-		localStorage.setItem("items", JSON.stringify($scope.items));
-	};
+    localStorage.setItem("items", JSON.stringify($scope.items));
+  };
 
-	$scope.updateItem = function(item) {
-		item.updating=false;
+  $scope.updateItem = function(item) {
+    item.updating=false;
 
-		localStorage.setItem("items", JSON.stringify($scope.items));
-	};
+    localStorage.setItem("items", JSON.stringify($scope.items));
+  };
+
+//-----
+
+    $scope.notes = [{
+        "ID": "1",
+        checked: false,
+        "name": "Lezen",
+    }, {
+        "ID": "2",
+        checked: false,
+        "name": "Studeren",
+    }];
+    
+    $scope.categories = [{
+        "ID": "1",
+        "name": "School",
+        "color": "red",
+    }, {
+        "ID": "2",
+        "name": "Werk",
+        "color": "blue",
+    }];
 
 
-	/*$scope.uniqueItems = function(){
-		var test = $scope.items.
-		console.log(test);
-		uniqueArray = jQuery.unique($scope.items.category);
-		console.log(uniqueArray);
-	return uniqueArray;
+    
+    $scope.getCurrencyByCountry = function(note){
+        var categories = "";
+        angular.forEach($scope.categories, function(value, key) {
+            if(note.ID == value.ID){
+                categories = value.name;
+                return false;
+            }
+        });
+        return categories;
+    }
 
-	}
+});
+  /*$scope.uniqueItems = function(){
+    var test = $scope.items.
+    console.log(test);
+    uniqueArray = jQuery.unique($scope.items.category);
+    console.log(uniqueArray);
+  return uniqueArray;
+
+  }
 
 
-	//gekopieerde code
+  //gekopieerde code
 
-	/*angular.module('ui.filters').filter('unique', function () {
+  /*angular.module('ui.filters').filter('unique', function () {
 
   return function (items, filterOn) {
 
@@ -142,7 +208,6 @@ todoApp.controller('todoController', function($scope) {
       });
 
 */
-})
 
 /*filter('unique', function() {
   return function(items, category) {
@@ -163,7 +228,7 @@ todoApp.controller('todoController', function($scope) {
 
 /*todoApp.filter('unique', function () {
   return function (array) {
-  	uniqueArray = jQuery.unique(array);
+    uniqueArray = jQuery.unique(array);
     return uniqueArray;
   };
 });*/

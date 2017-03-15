@@ -8,7 +8,7 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" hre="style.css">
     <script src="script.js"></script>  
     
     <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
@@ -40,74 +40,13 @@
   <!-- <script src="node_modules/angular-filter/dist/angular-filter.min.js"></script>-->
 
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-   <!-- 1.2.7 
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script> -->
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
 
-        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>-->
-          
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
   </head>
 
-  <body ng-app="todoApp" ng-controller="todoController">
-        <nav>
-        <div id="mySidenav" class="sidenav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="material-icons">close</i></a>
-            <ul>
-                <li class="selected first"><a href="#/home">Home</a></li>
+<body ng-app="todoApp" ng-controller="todoController">
 
-                <li class="second"><a href="#/addlist">Voeg note toe</a></li>
-                
-                <li class="third"><a href="#/contact">Third</a></li>
-            </ul>
-            Voeg toe
-            <a href="#" ng-repeat="item in items |unique:'category' | filter: filters track by $index  " ng-click="filters.category = item.category">{{item.category}}</a>
-        </div>
-        </nav>
-        <!-- Use any element to open the sidenav -->
-
-      <span onclick="openNav()" ng-click="uniqueItems()"><i class="material-icons">menu</i></span>
-    <div class="listDiv">
-    <button ng-click="test()">HALLO</button>
-
-<a href="#home">Home</a>
-
-<a href="#addlist">Voeg note toe</a>
-                
-<a href="#contact">Third</a>
-
-    <div class="container"></div>
-<!-- test 
-        <ul>
-    <li ng-repeat="attr in data">
-      <input type="radio" name='data-attr' value='{{attr.id}}' ng-model="selected.id" />{{attr.id}}
-    </li>
-  </ul>
-  
-  <select ng-model="selected.value" ng-options="item.id for item in selectedAttr.values ">
-  </select>
-  
-  <hr>
-  selectedAttr: {{selectedAttr | json}}
-  <hr>
-  Selected: {{selected | json}}
-
-  </div>
-
-  --> 
-
-  <!--  <form>
-      <div class="form-group">
-        <label for="itemInput">Should do item</label>
-        <input type="text" class="form-control" id="itemInput" placeholder="item ..." ng-model="newItem.name">
-      </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="category ..." ng-model="newItem.category">
-      </div>
-
-      <button type="button" class="btn btn-danger">Reset</button>
-      <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
-    </form>-->
-
-       <br>
+    <br>
     <div class="col-lg-6">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
@@ -132,7 +71,7 @@
             <!-- FOREACH item IN items -->
             <tr ng-repeat="item in items | filter : filters | filter: checked=false | filter: searchTerm track by $index">
             <!-- | unique: 'category'-->
-               <td>{{$index+1}}</td>
+                <td>{{$index+1}}</td>
                 <td>
                     <span ng-hide="item.updating">{{item.name}}</span>
                     <input type="text" ng-model="item.name" ng-show="item.updating">
@@ -159,20 +98,13 @@
             </tr>
 
         </tbody>
-    </table> 
+    </table>
 
-<table>
-      <tr ng-repeat="note in notes |orderBy : 'name'">
-    <td>{{note.name}}</td>
-    <td>{{getCurrencyByCountry(note)}}</td>
-    <!-- Currency name here -->
-  </tr>
-  </table>
+{{ message }}
+    <hr>
 
-     <div ng-view=""></div> 
+<script type="text/javascript" src="application.js"></script>
+<script type="text/javascript" src="filters.js"></script>
+<!--<script type="text/javascript" src="unique.js"></script> -->
 <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="application.js"></script>
-     <script type="text/javascript" src="filters.js"></script>
-    <!--<script type="text/javascript" src="unique.js"></script> -->
-    
-  </body>
+</body> 
