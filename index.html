@@ -122,7 +122,7 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Item</th><th>Category</th><th>Status</th><th></th>
+                <th>Item</th><th>Category</th><th>Status</th><th>Priority</th>
             </tr>
         </thead>
         <tbody>
@@ -138,6 +138,9 @@
                 </td>
                 <td ng-class="{red: getColorByNote(note)==='red', blue: getColorByNote(note)==='blue', green: getColorByNote(note)==='green'}">
                     {{getCategoryByNote(note)}}
+                </td>
+                <td>
+                    {{getPriorityByNote(note)}}
                 </td>
                 <td>
                     <input type="checkbox" ng-model="note.checked">
@@ -168,20 +171,23 @@
   </tr>
   </table>
 
+  <table>
       <form>
       <div class="form-group">
-        <label for="itemInput">Should do item</label>
-        <input type="text" class="form-control" id="itemInput" placeholder="id ..." ng-model="newItem.id">
+        
+        <tr><input type="text" class="form-control" id="itemInput" placeholder="id ..." ng-model="newItem.id"></tr>
       </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name">
+        <tr><input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name"></tr>
       </div>
-       <input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2">
+       <tr><input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2"></tr>
       </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color">
+        <tr><input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color"></tr>
+        <tr><input type="text" class="form-control" id="categoryInput" placeholder="priority ..." ng-model="newItem.priority"></tr>
       </div> 
       <button type="button" class="btn btn-danger">Reset</button>
       <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
     </form>
+    </table>
 
      <div ng-view=""></div> 
 <script type="text/javascript" src="app.js"></script>

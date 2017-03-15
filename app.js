@@ -97,6 +97,11 @@ todoApp.controller('todoController', function($scope) {
       color: $scope.newItem.color
     });
 
+    $scope.priorities.push({
+      id: $scope.newItem.id,
+      name: $scope.newItem.priority,
+    });
+
     console.log($scope.notes);
     console.log($scope.newItem);
 
@@ -106,6 +111,7 @@ todoApp.controller('todoController', function($scope) {
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
     localStorage.setItem("categories", JSON.stringify($scope.categories));
+    localStorage.setItem("priorities", JSON.stringify($scope.priorities));
   };
 
   $scope.updateItem = function(note) {
@@ -136,14 +142,14 @@ todoApp.controller('todoController', function($scope) {
         "color": "blue",
     }];
 
-    $scope.priority = [{
-        "ID": "1",
+    $scope.priorities = [{
+        "id": "1",
         "name": "High",
     }, {
-        "ID": "2",
+        "id": "2",
         "name": "Medium",
     }, {
-        "ID": "3",
+        "id": "3",
         "name": "Low",
     }];
     
@@ -159,14 +165,25 @@ todoApp.controller('todoController', function($scope) {
     }
 
     $scope.getColorByNote = function(note){
-        var categories = "";
+        var colors = "";
         angular.forEach($scope.categories, function(value, key) {
             if(note.id == value.id){
-                categories = value.color;
+                colors = value.color;
                 return false;
             }
         });
-        return categories;
+        return colors;
+    }
+
+    $scope.getPriorityByNote = function(note){
+        var priorities = "";
+        angular.forEach($scope.priorities, function(value, key) {
+            if(note.id == value.id){
+                priorities = value.name;
+                return false;
+            }
+        });
+        return priorities;
     }
 
 });
