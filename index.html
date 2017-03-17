@@ -71,7 +71,7 @@
 
 <a href="#addlist">Voeg note toe</a>
                 
-<a href="#contact">Third</a>
+<a href="#categories">Categoriën</a>
 
     <div class="container"></div>
 <!-- test 
@@ -105,103 +105,8 @@
       <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
     </form>-->
 
-       <br>
-    <div class="col-lg-6">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
-        </div>
-    </div>
-
-    <br><br/>
-
-    <select ng-model="orderProp" ng-options="item.category for item in items">
-    <option value="0">Default</option>
-    // unique options from the categories
-    </select>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Item</th><th>Category</th><th>Status</th><th>Priority</th>
-            </tr>
-        </thead>
-        <tbody>
-        <a ng-click="filters.category = ''"'>clear filters</a>
-            <!-- FOREACH item IN items -->
-            <tr ng-repeat="note in notes | filter : filters | filter: checked=false | filter: searchTerm track by $index">
-            <!-- | unique: 'category'-->
-               <td>{{note.id}}</td>
-                <td>
-                    <span ng-hide="note.updating">{{note.name}}</span>
-                    <input type="text" ng-model="note.name" ng-show="note.updating">
-
-                </td>
-                <td ng-class="{Red: getColorByNote(note)==='Red', Blue: getColorByNote(note)==='Blue', Green: getColorByNote(note)==='Green'}">
-                    {{getCategoryByNote(note)}}
-                </td>
-                <td>
-                    {{getPriorityByNote(note)}}
-                </td>
-                <td>
-                    <input type="checkbox" ng-model="note.checked">
-                </td>
-                <td>
-                    <button ng-click="showMe = !showMe"><i class="material-icons">create</i></button>
-                </td>
-                <td>
-                <div ng-show="showMe">
-                    <button type="button" class="btn btn-success" ng-click="updateItem(note)" ng-show="note.updating">Save</button>
-
-                    <button type="button" class="btn btn-warning" ng-click="note.updating=true;" ng-hide="note.updating">Update</button>
-
-                    <button type="button" class="btn btn-danger" ng-click="deleteItem(note)">Delete</button>
-                </td>
-                </div>
-            </tr>
-
-        </tbody>
-    </table> 
-
-    <table>
-      <tr ng-repeat="note in notes |orderBy : 'name'">
-    <td>{{note.name}}</td>
-    <td>{{note.id}}</td>
-    <td>{{getCategoryByNote(note)}}</td>
-    <!-- Currency name here -->
-  </tr>
-  </table>
-
-  <table>
-      <form>
-      <div class="form-group">
-        
-        <tr><input type="text" class="form-control" id="nameInput" placeholder="name ..." ng-model="newItem.name"></tr>
-      </div>
-       <tr><input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2"></tr>
-      </div>
-        <tr>
-        <select id="colorInput" ng-model="newItem.color">
-            <option value="Red">Red</option>
-            <option value="Blue">Blue</option>
-            <option value="Green">Green</option>
-        </select></tr>
-        <br>
-        <tr>
-        <select id="priorityInput" ng-model="newItem.priority">
-            <option value="High">High</option>
-            <option value="Medium">Medium</option>
-            <option value="Low">Low</option>
-        </select> <!--<input type="text" class="form-control" id="categoryInput" placeholder="priority ..." ng-model="newItem.priority">--></tr>
-        <br>
-      </div> 
-      <button type="button" class="btn btn-danger">Reset</button>
-      <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
-    </form>
-    </table>
-
      <div ng-view=""></div> 
 <script type="text/javascript" src="app.js"></script>
-    <script type="text/javascript" src="application.js"></script>
      <script type="text/javascript" src="filters.js"></script>
     <!--<script type="text/javascript" src="unique.js"></script> -->
     

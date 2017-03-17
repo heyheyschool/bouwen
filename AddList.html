@@ -28,22 +28,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
   </head>
 
-  <body ng-app="todoApp" ng-controller="todoController">
+  <body ng-app="todoApp" ng-controller="addlistController">
 
-    <form>
-	  <div class="form-group">
-	    <label for="itemInput">Should do item</label>
-	    <input type="text" class="form-control" id="itemInput" placeholder="id ..." ng-model="newItem.id">
-	  </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="name ..." ng-model="newItem.name">
-	  </div>
-       <input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2">
+ <table>
+      <form>
+      <div class="form-group">
+        
+        <tr><input type="text" class="form-control" id="nameInput" placeholder="name ..." ng-model="newItem.name"></tr>
       </div>
-        <input type="text" class="form-control" id="categoryInput" placeholder="color ..." ng-model="newItem.color">
+       <tr><input type="text" class="form-control" id="categoryInput" placeholder="category name ..." ng-model="newItem.name2"></tr>
+      </div>
+      <tr><input type="text" class="form-control" id="commentInput" placeholder="comment ..." ng-model="newItem.comment"></tr>
+      </div>
+        <tr>
+        <select id="colorInput" ng-model="newItem.color">
+            <option value="Red">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Green">Green</option>
+        </select></tr>
+        <br>
+        <tr>
+        <select id="priorityInput" ng-model="newItem.priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select> <!--<input type="text" class="form-control" id="categoryInput" placeholder="priority ..." ng-model="newItem.priority">--></tr>
+        <br>
       </div> 
-	  <button type="button" class="btn btn-danger">Reset</button>
-	  <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
-	</form>
+      <button type="button" class="btn btn-danger">Reset</button>
+      <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
+    </form>
+    </table>
 
     <table>
       <tr ng-repeat="note in notes |orderBy : 'name'">
@@ -53,6 +68,8 @@
     <!-- Currency name here -->
   </tr>
   </table>
+
+  TEST
 
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="filters.js"></script>

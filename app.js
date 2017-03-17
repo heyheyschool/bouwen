@@ -19,68 +19,26 @@ var todoApp = angular.module('todoApp', ['todoApp.filters', 'ngRoute'])
                 }]);   
 */
 
-todoApp.config(function($routeProvider) {
+todoApp.config(function($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('');
+
     $routeProvider
     .when("/home", {
-        templateUrl : "test2.html"
+        templateUrl : "home.html"
     })
     .when("/addlist", {
-        templateUrl : "Addlist.html"
+        templateUrl : "Addlist.html",
+        controller: "addlistController"
     })
-    .when("/contact", {
-        templateUrl : "contact.html"
+    .when("/categories", {
+        templateUrl : "categories.html"
+    })
+    .otherwise({
+        redirectTo: 'home.html',
     });
 });
 
-todoApp.controller('todoController', function($scope) {
-  //HIER KOMT JE INHOUD :'D
-  
-
-  $scope.category = [
-  {name: "Groceries", color: "red"},
-  {name: "Work", color: "blue"},
-  {name: "School", color: "green"},
-  {name: "Lunch", color: "yellow"}];
-  
-  $scope.filters = {};
-
-  var localItems = JSON.parse(localStorage.getItem("items"));
-
-  if(localItems != undefined && localItems.length>0) {
-    $scope.items = localItems;
-  }
-  else {
-    $scope.items = [
-      {name:"Milk", checked:false, category:"Groceries"},
-      {name:"Eggs", checked:false, category:"Groceries"},
-      {name:"Cheese", checked:true, category:"Groceries"},
-      {name:"Do Homework", checked:false, category:"School"},
-      {name:"Buy pencils", checked:true, category:"School"},
-      {name:"Copy code from codebin", checked:false, category:"School"},
-      {name:"Make an Angular test", checked:false, category:"Work"}
-    ];
-  }
-
-
-
-//veranderd
-  $scope.deleteItem = function(note) {
-
-    //var index = $scope.notes.indexOf(note);
-    //$scope.notes.splice(index, 1); 
-
-    //localStorage.setItem("notes", JSON.stringify($scope.notes));
-    var deleteIndex = -1;
-    $scope.notes.forEach(function(e, i) {
-      if(e.name === note.name) {
-        deleteIndex = i;
-      }
-    });
-
-    $scope.notes.splice(deleteIndex, 1);
-
-    localStorage.setItem("notes", JSON.stringify($scope.notes));
-  };
+todoApp.controller("addlistController", function ($scope) {
 
   $scope.saveNewItem = function() {
     console.log($scope.newItem);
@@ -90,7 +48,8 @@ todoApp.controller('todoController', function($scope) {
     $scope.notes.push({
       id: $scope.notes.length + 1,
       checked: false,
-      name: $scope.newItem.name
+      name: $scope.newItem.name,
+      wid: $scope.comment.length + 1
     });
 
     $scope.categories.push({
@@ -101,8 +60,13 @@ todoApp.controller('todoController', function($scope) {
 
     $scope.priorities.push({
       id: $scope.priorities.length + 1,
-      name: $scope.newItem.priority,
+      name: $scope.newItem.priority
     });
+
+    $scope.comment.push({
+      id: $scope.comment.length + 1,
+      note: $scope.newItem.comment
+    })
 
     console.log($scope.notes);
     console.log($scope.newItem);
@@ -114,24 +78,69 @@ todoApp.controller('todoController', function($scope) {
     localStorage.setItem("notes", JSON.stringify($scope.notes));
     localStorage.setItem("categories", JSON.stringify($scope.categories));
     localStorage.setItem("priorities", JSON.stringify($scope.priorities));
+    localStorage.setItem("comment", JSON.stringify($scope.comment));
   };
 
-  $scope.updateItem = function(note) {
+});
+
+todoApp.controller('todoController', function($scope) {
+  
+   $scope.deleteItem = function(note) {
+
+    //var index = $scope.notes.indexOf(note);
+    //$scope.notes.splice(index, 1); 
+
+    //localStorage.setItem("notes", JSON.stringify($scope.notes));
+    var deleteIndex = -1; 
+    var note;
+    var commentIndex = -1;
+    $scope.notes.forEach(function(e, i) {
+      if(e.name === note.name) {
+        deleteIndex = i;
+        commentIndex = commentIndex + note.wid;  
+        console.log(note.wid);
+        console.log(commentIndex);
+      }
+    });
+
+    $scope.notes.splice(deleteIndex, 1);
+    $scope.comment.splice(commentIndex, 1);
+    localStorage.setItem("notes", JSON.stringify($scope.notes));
+    localStorage.setItem("comment", JSON.stringify($scope.comment));
+  };
+
+  $scope.updateItem = function(note, comment) {
     note.updating=false;
+    comment.updating=false; 
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
+    localStorage.setItem("comments", JSON.stringify($scope.comments));
   };
 
+  $scope.category = {};
+  
+  $scope.filters = {};
+
+  var localItems = JSON.parse(localStorage.getItem("items"));
+
+  if(localItems != undefined && localItems.length>0) {
+    $scope.items = localItems;
+  }
+
 //-----
+
+//id van ander object meegeven in notes  
 
     $scope.notes = [{
         "id": "1",
         checked: false,
         "name": "Lezen",
+        "wid": "1",
     }, {
         "id": "2",
         checked: false,
         "name": "Studeren",
+        "wid": "2",
     }];
     
     $scope.categories = [{
@@ -153,6 +162,17 @@ todoApp.controller('todoController', function($scope) {
     }, {
         "id": "3",
         "name": "Low",
+    }];
+
+    $scope.comment = [{
+        "id": "1",
+        "note": "Architectuur boek",
+      }, {
+        "id": "2",
+        "note": "SPA afmaken",
+      }, {
+        "id": "3",
+        "note": "Test",
     }];
     
     $scope.getCategoryByNote = function(note){
@@ -186,6 +206,17 @@ todoApp.controller('todoController', function($scope) {
             }
         });
         return priorities;
+    }
+
+    $scope.getCommentByNote = function(note){
+        var comment = "";
+        angular.forEach($scope.comment, function(value, key) {
+            if(note.wid == value.id){
+                comment = value.note;
+                return false;
+            }
+        });
+        return comment;
     }
 
 });

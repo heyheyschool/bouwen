@@ -6,25 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Should do List</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-    <link rel="stylesheet" type="text/css" hre="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <script src="script.js"></script>  
     
     <link href="https://fonts.googleapis.com/css?family=Hind" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <style type="text/css">
-    .groceries {
-        color: #BADA55;
+    .Red {
+        color: #ff0000;
     }
 
-    .work {
-        color: #C0FFEE;
+    .Blue {
+        color: #6600ff;
     }
 
-    .school {
-        color: #D13537;
+    .Green {
+        color: #00ff00;
     }
 
     </style>
@@ -37,16 +35,70 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.4.0/angular-ui.min.js"></script>
 
-  <!-- <script src="node_modules/angular-filter/dist/angular-filter.min.js"></script>-->
+  <script src="node_modules/angular-filter/dist/angular-filter.min.js"></script>-->
+   <!-- 1.2.7 
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script> -->
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
-
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>-->
+          
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
   </head>
 
-<body ng-app="todoApp" ng-controller="todoController">
+  <body ng-app="todoApp" ng-controller="todoController">
+    <!--    <nav>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"><i class="material-icons">close</i></a>
+            <ul>
+                <li class="selected first"><a href="#/home">Home</a></li>
 
-    <br>
+                <li class="second"><a href="#/addlist">Voeg note toe</a></li>
+                
+                <li class="third"><a href="#/contact">Third</a></li>
+            </ul>
+            Voeg toe
+            <a href="#" ng-repeat="item in items |unique:'category' | filter: filters track by $index  " ng-click="filters.category = item.category">{{item.category}}</a>
+        </div>
+        </nav> -->
+        <!-- Use any element to open the sidenav -->
+
+   <!--   <span onclick="openNav()" ng-click="uniqueItems()"><i class="material-icons">menu</i></span>
+    <div class="listDiv">
+    <button ng-click="test()">HALLO</button> -->
+
+<!-- test 
+        <ul>
+    <li ng-repeat="attr in data">
+      <input type="radio" name='data-attr' value='{{attr.id}}' ng-model="selected.id" />{{attr.id}}
+    </li>
+  </ul>
+  
+  <select ng-model="selected.value" ng-options="item.id for item in selectedAttr.values ">
+  </select>
+  
+  <hr>
+  selectedAttr: {{selectedAttr | json}}
+  <hr>
+  Selected: {{selected | json}}
+
+  </div>
+
+  --> 
+
+  <!--  <form>
+      <div class="form-group">
+        <label for="itemInput">Should do item</label>
+        <input type="text" class="form-control" id="itemInput" placeholder="item ..." ng-model="newItem.name">
+      </div>
+        <input type="text" class="form-control" id="categoryInput" placeholder="category ..." ng-model="newItem.category">
+      </div>
+
+      <button type="button" class="btn btn-danger">Reset</button>
+      <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
+    </form>-->
+
+    <a href="" ng-repeat="note in notes | filter: filters track by $index" ng-click="filters.category = getCategoryByNote(note)">{{getCategoryByNote(note)}}</a>
+    test
+       <br>
     <div class="col-lg-6">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
@@ -55,56 +107,67 @@
 
     <br><br/>
 
-    <select ng-model="orderProp" ng-options="item.category for item in items">
+    <!--<select ng-model="orderProp" ng-click="filters.category = getCategoryByNote(note)" ng-options="note in notes | getCategoryByNote(note) | filter: filters track by $index">
     <option value="0">Default</option>
     // unique options from the categories
-    </select>
+    </select> -->
 
     <table class="table">
         <thead>
             <tr>
-                <th>Item</th><th>Category</th><th>Status</th><th></th>
+                <th>Item</th><th>Category</th><th>Status</th><th>Priority</th><th>Comment</th>
             </tr>
         </thead>
         <tbody>
         <a ng-click="filters.category = ''"'>clear filters</a>
             <!-- FOREACH item IN items -->
-            <tr ng-repeat="item in items | filter : filters | filter: checked=false | filter: searchTerm track by $index">
+            <tr ng-repeat="note in notes | filter : filters | filter: checked=false | filter: searchTerm track by $index">
             <!-- | unique: 'category'-->
-                <td>{{$index+1}}</td>
+               <td>{{note.id}}</td>
                 <td>
-                    <span ng-hide="item.updating">{{item.name}}</span>
-                    <input type="text" ng-model="item.name" ng-show="item.updating">
-
+                    <span ng-hide="note.updating">{{note.name}}</span>
+                    <input type="text" ng-model="note.name" ng-show="note.updating">
+                    <span ng-hide="note.updating">{{getCommentByNote(note)}}</span>
+                    <input type="text" ng-model="comment.note" ng-show="note.updating">
+                </td>
+                <td ng-class="{Red: getColorByNote(note)==='Red', Blue: getColorByNote(note)==='Blue', Green: getColorByNote(note)==='Green'}">
+                    {{getCategoryByNote(note)}}
                 </td>
                 <td>
-                    {{item.category}}
+                    {{getPriorityByNote(note)}}
                 </td>
+                <span ng-hide="note.updating">{{getCommentByNote(note)}}</span>
+                <input type="text" ng-model="getCommentByNote" ng-show="note.updating">
                 <td>
-                    <input type="checkbox" ng-model="item.checked">
+                    <input type="checkbox" ng-model="note.checked">
                 </td>
                 <td>
                     <button ng-click="showMe = !showMe"><i class="material-icons">create</i></button>
                 </td>
                 <td>
                 <div ng-show="showMe">
-                    <button type="button" class="btn btn-success" ng-click="updateItem(item)" ng-show="item.updating">Save</button>
+                    <button type="button" class="btn btn-success" ng-click="updateItem(note, getCommentByNote(note))" ng-show="note.updating">Save</button>
 
-                    <button type="button" class="btn btn-warning" ng-click="item.updating=true;" ng-hide="item.updating">Update</button>
+                    <button type="button" class="btn btn-warning" ng-click="note.updating=true;" ng-hide="note.updating">Update</button>
 
-                    <button type="button" class="btn btn-danger" ng-click="deleteItem(item)">Delete</button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteItem(note)">Delete</button>
                 </td>
                 </div>
             </tr>
 
         </tbody>
-    </table>
+    </table> 
 
-{{ message }}
-    <hr>
-
-<script type="text/javascript" src="application.js"></script>
-<script type="text/javascript" src="filters.js"></script>
-<!--<script type="text/javascript" src="unique.js"></script> -->
-<script type="text/javascript" src="app.js"></script>
-</body> 
+    <table>
+      <tr ng-repeat="note in notes |orderBy : 'name'">
+    <td>{{note.name}}</td>
+    <td>{{note.id}}</td>
+    <td>{{getCategoryByNote(note)}}</td>
+    <!-- Currency name here -->
+  </tr>
+  </table>
+    <script type="text/javascript" src="app.js"></script>
+     <script type="text/javascript" src="filters.js"></script>
+    <!--<script type="text/javascript" src="unique.js"></script> -->
+    
+  </body>
