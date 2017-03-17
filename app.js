@@ -98,8 +98,8 @@ todoApp.controller('todoController', function($scope) {
       if(e.name === note.name) {
         deleteIndex = i;
         commentIndex = commentIndex + note.wid;  
-        console.log(note.wid);
-        console.log(commentIndex);
+        /*console.log(note.wid);
+        console.log(commentIndex);*/
       }
     });
 
@@ -109,12 +109,20 @@ todoApp.controller('todoController', function($scope) {
     localStorage.setItem("comment", JSON.stringify($scope.comment));
   };
 
-  $scope.updateItem = function(note, comment) {
+  $scope.updateItem = function(note, comm) {
     note.updating=false;
-    comment.updating=false; 
+    var test = -1;
+    test = test + note.wid; 
+    console.log("comm value" + comm);
+    var test2 = String(comm);
+    console.log(test2);
+    console.log("splice " + $scope.comment.splice(test, 1, {"id": note.wid, "note": comm}));;
+    console.log($scope.comment[0], $scope.comment[1], $scope.comment[2]);
+   // $scope.comment[test].push({"id": "0", "note": "BLABLA"})
+    //console.log($scope.comment.splice(1, test, "id": note.wid "note": comm));
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
-    localStorage.setItem("comments", JSON.stringify($scope.comments));
+    localStorage.setItem("comment", JSON.stringify($scope.comment));
   };
 
   $scope.category = {};
