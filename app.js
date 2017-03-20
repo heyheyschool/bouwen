@@ -49,13 +49,14 @@ todoApp.controller("addlistController", function ($scope) {
       id: $scope.notes.length + 1,
       checked: false,
       name: $scope.newItem.name,
-      wid: $scope.comment.length + 1
+      wid: $scope.comment.length + 1,
+      cid: $scope.categories.length + 1
     });
 
     $scope.categories.push({
       id: $scope.categories.length + 1,
       name: $scope.newItem.name2,
-      color: $scope.newItem.color
+     // color: $scope.newItem.color
     });
 
     $scope.priorities.push({
@@ -84,7 +85,7 @@ todoApp.controller("addlistController", function ($scope) {
 });
 
 todoApp.controller('todoController', function($scope) {
-  
+
    $scope.deleteItem = function(note) {
 
     //var index = $scope.notes.indexOf(note);
@@ -94,10 +95,12 @@ todoApp.controller('todoController', function($scope) {
     var deleteIndex = -1; 
     var note;
     var commentIndex = -1;
+    var categoryIndex = -1;
     $scope.notes.forEach(function(e, i) {
       if(e.name === note.name) {
         deleteIndex = i;
         commentIndex = commentIndex + note.wid;  
+        categoryIndex = categoryIndex + note.cid;
         /*console.log(note.wid);
         console.log(commentIndex);*/
       }
@@ -105,35 +108,66 @@ todoApp.controller('todoController', function($scope) {
 
     $scope.notes.splice(deleteIndex, 1);
     $scope.comment.splice(commentIndex, 1);
+    $scope.categories.splice(categoryIndex, 1);
     localStorage.setItem("notes", JSON.stringify($scope.notes));
     localStorage.setItem("comment", JSON.stringify($scope.comment));
+    localStorage.setItem("categories", JSON.stringify($scope.categories));
   };
 
-  $scope.updateItem = function(note, comm) {
+  $scope.updateItem = function(note, comment, category) {
     note.updating=false;
     var test = -1;
-    test = test + note.wid; 
-    console.log("comm value" + comm);
-    var test2 = String(comm);
-    console.log(test2);
-    console.log("splice " + $scope.comment.splice(test, 1, {"id": note.wid, "note": comm}));;
+    commentId = test + note.wid; 
+    categoryId = test + note.cid;
+    console.log("comm value" + comment);
+    console.log("category value" + category);
+    $scope.categories.splice(categoryId, 1, {"id": note.cid, "name": category})
+    $scope.comment.splice(commentId, 1, {"id": note.wid, "note": comment})
+    //console.log("splice " + $scope.comment.splice(test, 1, {"id": note.wid, "note": comm}));;
     console.log($scope.comment[0], $scope.comment[1], $scope.comment[2]);
    // $scope.comment[test].push({"id": "0", "note": "BLABLA"})
     //console.log($scope.comment.splice(1, test, "id": note.wid "note": comm));
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
     localStorage.setItem("comment", JSON.stringify($scope.comment));
+    localStorage.setItem("categories", JSON.stringify($scope.categories));
   };
 
   $scope.category = {};
   
   $scope.filters = {};
 
-  var localItems = JSON.parse(localStorage.getItem("items"));
+  var localCategories = JSON.parse(localStorage.getItem("categories"));
+  var localComments = JSON.parse(localStorage.getItem("comment"));
+  var localNotes = JSON.parse(localStorage.getItem("notes"));
+  var localPriorities = JSON.parse(localStorage.getItem("priorities"));
 
-  if(localItems != undefined && localItems.length>0) {
-    $scope.items = localItems;
+  console.log(JSON.parse(localStorage.getItem("categories")));
+  console.log(JSON.parse(localStorage.getItem("comment")));
+  console.log(JSON.parse(localStorage.getItem("notes")));
+  console.log(JSON.parse(localStorage.getItem("priorities")));
+
+  if(localCategories != undefined && localCategories.length>0) {
+    $scope.categories = localCategories;
+    console.log($scope.categories);
   }
+
+  if(localComments != undefined && localComments.length>0) {
+    $scope.comment = localComments;
+    console.log($scope.comment);
+  }
+
+  if(localNotes != undefined && localNotes.length>0) {
+    $scope.notes = localNotes;
+    console.log($scope.notes);
+  }
+
+  if(localPriorities != undefined && localPriorities.length>0) {
+    $scope.prorities = localPriorities;
+    console.log($scope.prorities);
+  }
+
+
 
 //-----
 
@@ -144,21 +178,23 @@ todoApp.controller('todoController', function($scope) {
         checked: false,
         "name": "Lezen",
         "wid": "1",
+        "cid": "2",
     }, {
         "id": "2",
         checked: false,
         "name": "Studeren",
         "wid": "2",
+        "cid": "1",
     }];
     
     $scope.categories = [{
         "id": "1",
         "name": "School",
-        "color": "red",
+        //"color": "red",
     }, {
         "id": "2",
         "name": "Werk",
-        "color": "blue",
+        //"color": "blue",
     }];
 
     $scope.priorities = [{
@@ -186,7 +222,7 @@ todoApp.controller('todoController', function($scope) {
     $scope.getCategoryByNote = function(note){
         var categories = "";
         angular.forEach($scope.categories, function(value, key) {
-            if(note.id == value.id){
+            if(note.cid == value.id){
                 categories = value.name;
                 return false;
             }

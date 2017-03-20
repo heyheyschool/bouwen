@@ -129,13 +129,17 @@
                     <input type="text" ng-model="note.name" ng-show="note.updating">
                 </td>
                 <td ng-class="{Red: getColorByNote(note)==='Red', Blue: getColorByNote(note)==='Blue', Green: getColorByNote(note)==='Green'}">
-                    {{getCategoryByNote(note)}}
+                <span ng-hide="note.updating">{{getCategoryByNote(note)}}</span>
+                <input type="text" placeholder="{{getCategoryByNote(note)}}" ng-value="getCategoryByNote(note)" ng-model="categoryValue" ng-show="note.updating">
                 </td>
                 <td>
                     {{getPriorityByNote(note)}}
                 </td>
                 <td>
-                <input type="text" ng-model="commentValue" name="Comment" value="{{getCommentByNote(note)}}">
+                <span ng-hide="note.updating">{{getCommentByNote(note)}}</span>
+                <input type="text" placeholder="{{getCommentByNote(note)}}" ng-value="getCommentByNote(note)" ng-model="commentValue" ng-show="note.updating">
+                <!--  ng-init="rootFolders='hoi'" -->
+                <!-- <input type="text" ng-model="commentValue" name="Comment" value="{{getCommentByNote(note)}}">-->
                 </td>
                 <td>
                     <input type="checkbox" ng-model="note.checked">
@@ -145,7 +149,7 @@
                 </td>
                 <td>
                 <div ng-show="showMe">
-                    <button type="button" class="btn btn-success" ng-click="updateItem(note, commentValue)" ng-show="note.updating">Save</button>
+                    <button type="button" class="btn btn-success" ng-click="updateItem(note, commentValue, categoryValue)" ng-show="note.updating">Save</button>
 
                     <button type="button" class="btn btn-warning" ng-click="note.updating=true;" ng-hide="note.updating">Update</button>
 
