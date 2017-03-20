@@ -50,19 +50,20 @@ todoApp.controller("addlistController", function ($scope) {
       checked: false,
       name: $scope.newItem.name,
       wid: $scope.comment.length + 1,
-      cid: $scope.categories.length + 1
+      cid: $scope.categories.length + 1,
+      pid: $scope.checkPriorityId($scope.newItem.priority)
     });
 
     $scope.categories.push({
       id: $scope.categories.length + 1,
       name: $scope.newItem.name2,
-     // color: $scope.newItem.color
     });
 
-    $scope.priorities.push({
+   /* $scope.priorities.push({
       id: $scope.priorities.length + 1,
-      name: $scope.newItem.priority
-    });
+      name: $scope.newItem.priority,
+      color: $scope.checkPriorityColor($scope.newItem.priority)
+    });*/
 
     $scope.comment.push({
       id: $scope.comment.length + 1,
@@ -78,7 +79,7 @@ todoApp.controller("addlistController", function ($scope) {
 
     localStorage.setItem("notes", JSON.stringify($scope.notes));
     localStorage.setItem("categories", JSON.stringify($scope.categories));
-    localStorage.setItem("priorities", JSON.stringify($scope.priorities));
+    //localStorage.setItem("priorities", JSON.stringify($scope.priorities));
     localStorage.setItem("comment", JSON.stringify($scope.comment));
   };
 
@@ -179,33 +180,38 @@ todoApp.controller('todoController', function($scope) {
         "name": "Lezen",
         "wid": "1",
         "cid": "2",
+        "pid": "1",
     }, {
         "id": "2",
         checked: false,
         "name": "Studeren",
         "wid": "2",
         "cid": "1",
+        "pid": "2",
     }];
     
     $scope.categories = [{
         "id": "1",
         "name": "School",
-        //"color": "red",
+        //"pid": "1",
     }, {
         "id": "2",
         "name": "Werk",
-        //"color": "blue",
+        //"pid": "2",
     }];
 
     $scope.priorities = [{
         "id": "1",
         "name": "High",
+        "color": "red",
     }, {
         "id": "2",
         "name": "Medium",
+        "color": "blue",
     }, {
         "id": "3",
         "name": "Low",
+        "color": "green",
     }];
 
     $scope.comment = [{
@@ -228,12 +234,12 @@ todoApp.controller('todoController', function($scope) {
             }
         });
         return categories;
-    }
+}
 
     $scope.getColorByNote = function(note){
         var colors = "";
-        angular.forEach($scope.categories, function(value, key) {
-            if(note.id == value.id){
+        angular.forEach($scope.prorities, function(value, key) {
+            if(note.pid == value.id){
                 colors = value.color;
                 return false;
             }
@@ -244,7 +250,7 @@ todoApp.controller('todoController', function($scope) {
     $scope.getPriorityByNote = function(note){
         var priorities = "";
         angular.forEach($scope.priorities, function(value, key) {
-            if(note.id == value.id){
+            if(note.pid == value.id){
                 priorities = value.name;
                 return false;
             }
@@ -262,6 +268,40 @@ todoApp.controller('todoController', function($scope) {
         });
         return comment;
     }
+
+    $scope.checkPriorityId = function (caseStr) {
+        switch (caseStr) {
+            case 'High':
+                return 1;
+                console.log(1);
+                break;
+            case 'Medium':
+                return 2;
+                console.log(2);
+                break;
+            case 'Low':
+                return 3;
+                console.log(3);
+                break;
+        }
+    };
+
+    $scope.checkPriorityColor = function (caseStr) {
+        switch (caseStr) {
+            case 'High':
+                return "red";
+                console.log("red");
+                break;
+            case 'Medium':
+                return "blue";
+                console.log("blue");
+                break;
+            case 'Low':
+                return "green";
+                console.log("green");
+                break;
+        }
+    };
 
 });
   /*$scope.uniqueItems = function(){

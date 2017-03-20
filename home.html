@@ -96,9 +96,9 @@
       <button type="submit" class="btn btn-primary" ng-click="saveNewItem()" ng-model="newItem">Save</button>
     </form>-->
 
-    <a href="" ng-repeat="note in notes | filter: filters track by $index" ng-click="filters.category = getCategoryByNote(note)">{{getCategoryByNote(note)}}</a>
+   <!-- <a href="" ng-repeat="note in notes | filter: filters track by $index" ng-click="filters.category = getCategoryByNote(note)">{{getCategoryByNote(note)}}</a>
     test
-       <br>
+       <br>-->
     <div class="col-lg-6">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
@@ -119,7 +119,7 @@
             </tr>
         </thead>
         <tbody>
-        <a ng-click="filters.category = ''"'>clear filters</a>
+        <!-- <a ng-click="filters.category = ''"'>clear filters</a> -->
             <!-- FOREACH item IN items -->
             <tr ng-repeat="note in notes | filter : filters | filter: checked=false | filter: searchTerm track by $index">
             <!-- | unique: 'category'-->
@@ -128,11 +128,11 @@
                     <span ng-hide="note.updating">{{note.name}}</span>
                     <input type="text" ng-model="note.name" ng-show="note.updating">
                 </td>
-                <td ng-class="{Red: getColorByNote(note)==='Red', Blue: getColorByNote(note)==='Blue', Green: getColorByNote(note)==='Green'}">
-                <span ng-hide="note.updating">{{getCategoryByNote(note)}}</span>
-                <input type="text" placeholder="{{getCategoryByNote(note)}}" ng-value="getCategoryByNote(note)" ng-model="categoryValue" ng-show="note.updating">
-                </td>
                 <td>
+                    <span ng-hide="note.updating">{{getCategoryByNote(note)}}</span>
+                    <input type="text" ng-value="getCategoryByNote(note)" ng-model="categoryValue" ng-show="note.updating"> 
+                </td>
+                <td ng-class="{Red: getColorByNote(note)==='red', Blue: getColorByNote(note)==='blue', Green: getColorByNote(note)==='green'}"> 
                     {{getPriorityByNote(note)}}
                 </td>
                 <td>
