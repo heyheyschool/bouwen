@@ -1,4 +1,4 @@
-var todoApp = angular.module('todoApp', ['todoApp.filters', 'ngRoute'])
+var todoApp = angular.module('todoApp', ['todoApp.filters', 'todoApp.filters2', 'ngRoute'])
 //'ui, ui.filters'
 
 /* todoApp.config(['$routeProvider',
@@ -231,6 +231,22 @@ todoApp.controller('todoController', function($scope) {
         "note": "Test",
     }];
 */
+
+  /*  todoApp.factory('ImagesFactory', function() {
+    var images = [
+        "http://www.w3schools.com/css/trolltunga.jpg",
+        "http://wowslider.com/sliders/demo-45/data1/images/waves.jpg",
+        "http://wowslider.com/sliders/demo-7/data/images/amsterdam.jpg"
+    ];
+
+    function getAllImages() {
+        return images;
+    }
+
+    return {
+        getAllImages: getAllImages
+    };
+});*/
 
     
     $scope.getCategoryByNote = function(note){

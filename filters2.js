@@ -1,4 +1,4 @@
-var todoAppFilters = angular.module('todoApp.filters', []);
+var todoAppFilters = angular.module('todoApp.filters2', []);
 
 todoAppFilters.filter('unique', function () {
 

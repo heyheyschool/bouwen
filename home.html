@@ -25,6 +25,13 @@
         color: #00ff00;
     }
 
+    div::first-letter {
+    font-size: large;
+    font-weight: bold;
+    font-style: italic;
+    }
+
+
     </style>
 
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script> 
@@ -99,11 +106,15 @@
    <!-- <a href="" ng-repeat="note in notes | filter: filters track by $index" ng-click="filters.category = getCategoryByNote(note)">{{getCategoryByNote(note)}}</a>
     test
        <br>-->
-    <div class="col-lg-6">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
-        </div>
-    </div>
+
+    <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." ng-model="searchTerm">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+      </div> 
 
     <br><br/>
 
@@ -125,7 +136,7 @@
             <!-- | unique: 'category'-->
                <td>{{note.id}}</td>
                 <td>
-                    <span ng-hide="note.updating">{{note.name | filters }}</span>
+                    <span ng-hide="note.updating"><div id="test">{{note.name | filters }}</div></span>
                     <input type="text" ng-model="note.name" ng-show="note.updating">
                 </td>
                 <td>
