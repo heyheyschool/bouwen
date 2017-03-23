@@ -43,8 +43,6 @@ todoApp.controller("addlistController", function ($scope) {
   $scope.saveNewItem = function() {
     console.log($scope.newItem);
 
-
-
     $scope.notes.push({
       id: $scope.notes.length + 1,
       checked: false,
@@ -87,7 +85,7 @@ todoApp.controller("addlistController", function ($scope) {
 
 todoApp.controller('todoController', function($scope) {
 
-   $scope.deleteItem = function(note) {
+  $scope.deleteItem = function(note) {
 
     //var index = $scope.notes.indexOf(note);
     //$scope.notes.splice(index, 1); 
@@ -143,10 +141,12 @@ todoApp.controller('todoController', function($scope) {
   var localNotes = JSON.parse(localStorage.getItem("notes"));
   var localPriorities = JSON.parse(localStorage.getItem("priorities"));
 
-  console.log(JSON.parse(localStorage.getItem("categories")));
-  console.log(JSON.parse(localStorage.getItem("comment")));
-  console.log(JSON.parse(localStorage.getItem("notes")));
-  console.log(JSON.parse(localStorage.getItem("priorities")));
+  console.log("before"+localCategories);
+  console.log("before"+localComments);
+  console.log("before"+localNotes);
+  console.log("before prio"+localPriorities);
+
+  //Ik overschrijf de array en moet hem toevoegen.
 
   if(localCategories != undefined && localCategories.length>0) {
     $scope.categories = localCategories;
@@ -164,16 +164,18 @@ todoApp.controller('todoController', function($scope) {
   }
 
   if(localPriorities != undefined && localPriorities.length>0) {
-    $scope.prorities = localPriorities;
-    console.log($scope.prorities);
+    $scope.priorities = localPriorities;
+    console.log($scope.priorities);
   }
-
-
 
 //-----
 
 //id van ander object meegeven in notes  
 
+
+     // $scope.notes = {};
+     // $scope.categories = {};
+     // $scope.comment = {};
     $scope.notes = [{
         "id": "1",
         checked: false,
@@ -189,6 +191,8 @@ todoApp.controller('todoController', function($scope) {
         "cid": "1",
         "pid": "2",
     }];
+
+     console.log($scope.notes);
     
     $scope.categories = [{
         "id": "1",
@@ -198,7 +202,7 @@ todoApp.controller('todoController', function($scope) {
         "id": "2",
         "name": "Werk",
         //"pid": "2",
-    }];
+    }]; 
 
     $scope.priorities = [{
         "id": "1",
@@ -214,7 +218,9 @@ todoApp.controller('todoController', function($scope) {
         "color": "green",
     }];
 
-    $scope.comment = [{
+    console.log($scope.priorities);
+
+   /* $scope.comment = [{
         "id": "1",
         "note": "Architectuur boek",
       }, {
@@ -224,6 +230,8 @@ todoApp.controller('todoController', function($scope) {
         "id": "3",
         "note": "Test",
     }];
+*/
+
     
     $scope.getCategoryByNote = function(note){
         var categories = "";

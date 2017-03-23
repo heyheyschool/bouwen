@@ -23,6 +23,13 @@
     	color: #D13537;
     }
 
+    input.ng-invalid {
+    background-color:pink;
+    }
+    input.ng-valid {
+    background-color:lightgreen;
+    }
+
     </style>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
@@ -31,7 +38,7 @@
   <body ng-app="todoApp" ng-controller="addlistController">
 
  <table>
-      <form>
+      <form name="addListForm">
       <div class="form-group">
         
         <tr><input type="text" class="form-control" id="nameInput" placeholder="name ..." ng-model="newItem.name"></tr>

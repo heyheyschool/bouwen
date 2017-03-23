@@ -58,7 +58,7 @@
                 <li class="third"><a href="#/contact">Third</a></li>
             </ul>
             Voeg toe
-            <a href="#" ng-repeat="item in items |unique:'category' | filter: filters track by $index  " ng-click="filters.category = item.category">{{item.category}}</a>
+            <a href="#" ng-repeat="item in items | filter: filters track by $index  " ng-click="filters.category = item.category">{{item.category}}</a>
         </div>
         </nav>
         <!-- Use any element to open the sidenav -->

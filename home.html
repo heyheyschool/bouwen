@@ -121,22 +121,22 @@
         <tbody>
         <!-- <a ng-click="filters.category = ''"'>clear filters</a> -->
             <!-- FOREACH item IN items -->
-            <tr ng-repeat="note in notes | filter : filters | filter: checked=false | filter: searchTerm track by $index">
+            <tr ng-repeat="note in notes | filter: checked=false | filter: searchTerm track by $index">
             <!-- | unique: 'category'-->
                <td>{{note.id}}</td>
                 <td>
-                    <span ng-hide="note.updating">{{note.name}}</span>
+                    <span ng-hide="note.updating">{{note.name | filters }}</span>
                     <input type="text" ng-model="note.name" ng-show="note.updating">
                 </td>
                 <td>
-                    <span ng-hide="note.updating">{{getCategoryByNote(note)}}</span>
+                    <span ng-hide="note.updating">{{getCategoryByNote(note) | filters }}</span>
                     <input type="text" ng-value="getCategoryByNote(note)" ng-model="categoryValue" ng-show="note.updating"> 
                 </td>
                 <td ng-class="{Red: getColorByNote(note)==='red', Blue: getColorByNote(note)==='blue', Green: getColorByNote(note)==='green'}"> 
-                    {{getPriorityByNote(note)}}
+                    {{getPriorityByNote(note) | filters }}
                 </td>
                 <td>
-                <span ng-hide="note.updating">{{getCommentByNote(note)}}</span>
+                <span ng-hide="note.updating">{{getCommentByNote(note) | filters }}</span>
                 <input type="text" placeholder="{{getCommentByNote(note)}}" ng-value="getCommentByNote(note)" ng-model="commentValue" ng-show="note.updating">
                 <!--  ng-init="rootFolders='hoi'" -->
                 <!-- <input type="text" ng-model="commentValue" name="Comment" value="{{getCommentByNote(note)}}">-->
