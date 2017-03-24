@@ -1,89 +1,3 @@
-var todoApp = angular.module('todoApp', ['todoApp.filters', 'todoApp.filters2', 'ngRoute'])
-//'ui, ui.filters'
-
-/* todoApp.config(['$routeProvider',
-                function($routeProvider) {
-                  $routeProvider.
-                    when('home', {
-                      templateUrl: 'test2.html'
-                    }).
-                    when('addlist', {
-                      templateUrl: 'Addlist.html'
-                    }).
-                    when('contact', {
-                        templateUrl: 'contact.html',
-                      }).
-                    otherwise({
-                      redirectTo: 'test2.html',
-                    });
-                }]);   
-*/
-
-todoApp.config(function($locationProvider, $routeProvider) {
-    $locationProvider.hashPrefix('');
-
-    $routeProvider
-    .when("/home", {
-        templateUrl : "home.html"
-    })
-    .when("/addlist", {
-        templateUrl : "Addlist.html",
-        controller: "addlistController"
-    })
-    .when("/categories", {
-        templateUrl : "categories.html",
-        controller: "HomeController"
-    })
-    .otherwise({
-        redirectTo: 'home.html',
-    });
-});
-
-todoApp.controller("addlistController", function ($scope) {
-
-  $scope.saveNewItem = function() {
-    console.log($scope.newItem);
-
-    $scope.notes.push({
-      id: $scope.notes.length + 1,
-      checked: false,
-      name: $scope.newItem.name,
-      wid: $scope.comment.length + 1,
-      cid: $scope.categories.length + 1,
-      pid: $scope.checkPriorityId($scope.newItem.priority)
-    });
-
-    $scope.categories.push({
-      id: $scope.categories.length + 1,
-      name: $scope.newItem.name2,
-    });
-
-   /* $scope.priorities.push({
-      id: $scope.priorities.length + 1,
-      name: $scope.newItem.priority,
-      color: $scope.checkPriorityColor($scope.newItem.priority)
-    });*/
-
-    $scope.comment.push({
-      id: $scope.comment.length + 1,
-      note: $scope.newItem.comment
-    })
-
-    console.log($scope.notes);
-    console.log($scope.newItem);
-
-    $scope.newItem = {};
-
-    console.log($scope.notes);
-
-    localStorage.setItem("notes", JSON.stringify($scope.notes));
-    localStorage.setItem("categories", JSON.stringify($scope.categories));
-    //localStorage.setItem("priorities", JSON.stringify($scope.priorities));
-    localStorage.setItem("comment", JSON.stringify($scope.comment));
-  };
-
-});
-
 todoApp.controller('todoController', function($scope) {
 
   $scope.deleteItem = function(note) {
@@ -137,47 +51,12 @@ todoApp.controller('todoController', function($scope) {
   
   $scope.filters = {};
 
-  var localCategories = JSON.parse(localStorage.getItem("categories"));
-  var localComments = JSON.parse(localStorage.getItem("comment"));
-  var localNotes = JSON.parse(localStorage.getItem("notes"));
-  var localPriorities = JSON.parse(localStorage.getItem("priorities"));
 
-  console.log("before"+localCategories);
-  console.log("before"+localComments);
-  console.log("before"+localNotes);
-  console.log("before prio"+localPriorities);
+  $scope.notes = [{}];
+  $scope.categories = [{}];
+  $scope.comment = [{}];
 
-  //Ik overschrijf de array en moet hem toevoegen.
-
-  if(localCategories != undefined && localCategories.length>0) {
-    $scope.categories = localCategories;
-    console.log($scope.categories);
-  }
-
-  if(localComments != undefined && localComments.length>0) {
-    $scope.comment = localComments;
-    console.log($scope.comment);
-  }
-
-  if(localNotes != undefined && localNotes.length>0) {
-    $scope.notes = localNotes;
-    console.log($scope.notes);
-  }
-
-  if(localPriorities != undefined && localPriorities.length>0) {
-    $scope.priorities = localPriorities;
-    console.log($scope.priorities);
-  }
-
-//-----
-
-//id van ander object meegeven in notes  
-
-
-     // $scope.notes = {};
-     // $scope.categories = {};
-     // $scope.comment = {};
-    $scope.notes = [{
+ /*$scope.notes = [{
         "id": "1",
         checked: false,
         "name": "Lezen",
@@ -203,7 +82,7 @@ todoApp.controller('todoController', function($scope) {
         "id": "2",
         "name": "Werk",
         //"pid": "2",
-    }]; 
+    }]; */
 
     $scope.priorities = [{
         "id": "1",
@@ -221,7 +100,7 @@ todoApp.controller('todoController', function($scope) {
 
     console.log($scope.priorities);
 
-   /* $scope.comment = [{
+    /* $scope.comment = [{
         "id": "1",
         "note": "Architectuur boek",
       }, {
@@ -230,8 +109,46 @@ todoApp.controller('todoController', function($scope) {
       }, {
         "id": "3",
         "note": "Test",
-    }];
-*/
+    }];*/
+
+
+  var localCategories = JSON.parse(localStorage.getItem("categories"));
+  var localComments = JSON.parse(localStorage.getItem("comment"));
+  var localNotes = JSON.parse(localStorage.getItem("notes"));
+  var localPriorities = JSON.parse(localStorage.getItem("priorities"));
+
+  console.log("before"+localCategories);
+  console.log("before"+localComments);
+  console.log("before"+localNotes);
+  console.log("before prio"+localPriorities);
+
+  //Ik overschrijf de array en moet hem toevoegen.
+
+  if(localCategories != undefined && localCategories.length>0) {
+
+    $scope.categories = $scope.categories.concat(localCategories);
+    console.log($scope.categories);
+  }
+
+  if(localComments != undefined && localComments.length>0) {
+    $scope.comment = $scope.comment.concat(localComments);
+    console.log($scope.comment);
+  }
+
+  if(localNotes != undefined && localNotes.length>0) {
+    $scope.notes = $scope.notes.concat(localNotes);
+    console.log($scope.notes);
+  }
+
+  if(localPriorities != undefined && localPriorities.length>0) {
+
+    $scope.priorities = localPriorities;
+    console.log($scope.priorities);
+  }
+
+//-----
+
+//id van ander object meegeven in notes  
 
 
     
