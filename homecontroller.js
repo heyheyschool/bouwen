@@ -1,20 +1,20 @@
-todoApp.controller("HomeController", function($scope, ImagesFactory) {
-    $scope.images = ImagesFactory.getAllImages();
+todoApp.controller("HomeController", function($scope, DataFactory) {
+    $scope.data = DataFactory.getAllData();
 });
 
-    todoApp.factory('ImagesFactory', function() {
-    var images = [
-        "http://www.w3schools.com/css/trolltunga.jpg",
-        "http://wowslider.com/sliders/demo-45/data1/images/waves.jpg",
-        "http://wowslider.com/sliders/demo-7/data/images/amsterdam.jpg"
+    todoApp.factory('DataFactory', function() {
+    var data = [
+        "Op deze website kan je todo lijsten aanmaken",
+    	"Ook kan je ze wijzigen en verwijderen",
+    	"Op deze pagina zie je afbeeldingen"
     ];
 
-    function getAllImages() {
-        return images;
+    function getAllData() {
+        return data;
     }
 
     return {
-        getAllImages: getAllImages
+        getAllData: getAllData
     };
 
 });
